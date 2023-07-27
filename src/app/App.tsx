@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom"
-import { AppPaths } from "shared/config/router/model/routeConfig"
-import { AppRouter } from "shared/config/router/ui/AppRouter"
+import { AppPaths } from "shared/config/routeConfig/routeConfig"
+import { AppRouter } from "app/providers/router"
 import { useTheme } from "app/providers/theme/useTheme"
 import { classNames } from "shared/lib/classNames/classNames"
 
