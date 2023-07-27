@@ -3,14 +3,14 @@ import { AppPaths } from "shared/config/routeConfig/routeConfig"
 import { AppRouter } from "app/providers/router"
 import { useTheme } from "app/providers/theme/useTheme"
 import { classNames } from "shared/lib/classNames/classNames"
+import { Navbar } from "widgets/Navbar"
 
 export const App = () => {
   const {theme, toggleTheme} = useTheme()
   
   return (
     <div className={classNames('app', {}, [theme])}>
-      <Link to={AppPaths.main}>Main</Link>
-      <Link to={AppPaths.about}>About</Link>
+      <Navbar />
       <button onClick={toggleTheme}>toggle</button>
       <AppRouter />
     </div>
