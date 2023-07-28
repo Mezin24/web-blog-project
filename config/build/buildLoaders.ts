@@ -9,6 +9,17 @@ export function buildLoaders({isDev}: BuildOptions): RuleSetRule[] {
     exclude: /node_modules/,
   }
 
+  const babel =  {
+    test: /\.m?js$/,
+    exclude: /node_modules/,
+    use: {
+      loader: "babel-loader",
+      options: {
+        presets: ['@babel/preset-env']
+      }
+    }
+  }
+
   const scss = {
     test: /\.s[ac]ss$/i,
     use: [
@@ -42,9 +53,10 @@ export function buildLoaders({isDev}: BuildOptions): RuleSetRule[] {
   }
   
   return [
-    typescript,
     scss,
     svgr,
+    babel,
+    typescript,
     fileLoader
   ]
 }
