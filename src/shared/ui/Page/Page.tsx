@@ -5,11 +5,8 @@ import cls from './Page.module.scss';
 interface PageProps {
    className?: string;
 }
-export const Page: FC<PageProps> = ({children, className}) => {
-
- return (
-     <section className={classNames(cls.page , {}, [className])}>
-       {children}
-     </section>
-   );
-};
+export const Page: FC<PageProps> = ({ children, className }) => (
+  <section className={classNames(cls.page, {}, [className])}>
+    {children}
+  </section>
+);
