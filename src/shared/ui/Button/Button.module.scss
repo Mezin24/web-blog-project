@@ -1,9 +1,18 @@
 .button {
   cursor: pointer;
-  background: transparent;
 }
 
 .clear {
   border: none;
   outline: none;
+  padding: 0;
+  margin: 0;
+  background: transparent;
+}
+
+.primary {
+  border: none;
+  outline: none;
+  color: var(--inverted-primary-color);
+  background: var(--inverted-bg-primary);
 }
