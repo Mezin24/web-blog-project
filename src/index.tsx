@@ -7,11 +7,11 @@ import { ThemeProvider } from './app/providers/theme/ThemeProvider';
 
 render(
   <BrowserRouter>
-    <ErrorBoundary>
-      <ThemeProvider>
+    <ThemeProvider>
+      <ErrorBoundary>
         <App />
-      </ThemeProvider>
-    </ErrorBoundary>
+      </ErrorBoundary>
+    </ThemeProvider>
   </BrowserRouter>,
   document.getElementById('root')
 );
