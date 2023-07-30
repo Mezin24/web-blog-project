@@ -4,7 +4,7 @@ import { Suspense } from 'react';
 import 'shared/config/i18n/i18n';
 import { classNames } from 'shared/lib/classNames/classNames';
 import { Navbar } from 'widgets/Navbar';
-import { Sidebar } from 'widgets/Sidebar/ui/Sidebar/Sidebar';
+import { Sidebar } from 'widgets/Sidebar';
 
 export const App = () => {
   const { theme } = useTheme();

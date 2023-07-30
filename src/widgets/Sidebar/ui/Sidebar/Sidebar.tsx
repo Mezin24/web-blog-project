@@ -16,13 +16,16 @@ export const Sidebar = ({ className }: SidebarProps) => {
   }, []);
 
   return (
-    <menu className={classNames(
-      cls.sidebar,
-      { [cls.collapsed]: collapsed },
-      [className]
-    )}
+    <menu
+      className={classNames(
+        cls.sidebar,
+        { [cls.collapsed]: collapsed },
+        [className]
+      )}
+      data-testid="sidebar"
     >
       <Button
+        data-testid="collapsed_btn"
         theme={ButtonTheme.PRIMARY}
         className={cls['toggle-btn']}
         onClick={toggleCollapsed}
