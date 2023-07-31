@@ -1,0 +1,8 @@
+.pageLoader {
+  height: cal(100vh - var(--navbar-height));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  flex-grow: 1;
+}

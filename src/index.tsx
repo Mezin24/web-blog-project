@@ -1,14 +1,17 @@
-import { render } from "react-dom";
-import 'app/styles/index.scss'
-import { App } from "./app/App";
-import { BrowserRouter } from "react-router-dom";
-import { ThemeProvider } from "./app/providers/theme/ThemeProvider";
+import { render } from 'react-dom';
+import 'app/styles/index.scss';
+import { BrowserRouter } from 'react-router-dom';
+import { ErrorBoundary } from 'app/providers/errorBoundary';
+import { App } from './app/App';
+import { ThemeProvider } from './app/providers/theme/ThemeProvider';
 
 render(
   <BrowserRouter>
     <ThemeProvider>
-      <App />
+      <ErrorBoundary>
+        <App />
+      </ErrorBoundary>
     </ThemeProvider>
   </BrowserRouter>,
   document.getElementById('root')
-)
+);
