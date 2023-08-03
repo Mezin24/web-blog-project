@@ -1,8 +1,8 @@
+import { LoginModal } from 'features/AuthByUsername';
+import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { classNames } from 'shared/lib/classNames/classNames';
 import { Button, ButtonTheme } from 'shared/ui/Button/Button';
-import { useTranslation } from 'react-i18next';
-import { Modal } from 'shared/ui/Modal/Modal';
-import { useState } from 'react';
 import cls from './Navbar.module.scss';
 
 interface NavbarProps {
@@ -13,18 +13,15 @@ export const Navbar = ({ className }: NavbarProps) => {
   const [isAuthOpen, setIsAuthOpen] = useState(false);
   const { t } = useTranslation();
 
-  const toggleAuthOpen = () => setIsAuthOpen((prev) => !prev);
+  const onCloseModal = () => setIsAuthOpen(false);
+  const onOpenModal = () => setIsAuthOpen(true);
 
   return (
     <header className={classNames(cls.navbar, {}, [className])}>
-      <Button onClick={toggleAuthOpen} theme={ButtonTheme.CLEAR_INVERTED}>
+      <Button onClick={onOpenModal} theme={ButtonTheme.CLEAR_INVERTED}>
         {t('Войти')}
       </Button>
-      <Modal isOpen={isAuthOpen} onClose={() => setIsAuthOpen(false)}>
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-        Dignissimos magnam consectetur maxime dicta sit assumenda distinctio ea
-        alias cupiditate impedit?
-      </Modal>
+      <LoginModal isOpen={isAuthOpen} onClose={onCloseModal} />
     </header>
   );
 };
