@@ -1,5 +1,5 @@
 import path from 'path';
-import webpack, { RuleSetRule } from 'webpack';
+import webpack, { RuleSetRule, DefinePlugin } from 'webpack';
 import { buildScssLoader } from '../build/loaders/buildScssLoader';
 import { BuildPaths } from '../build/types/build';
 
@@ -12,6 +12,7 @@ export default ({ config }: {config: webpack.Configuration}) => {
   };
   config.resolve?.extensions?.push('ts', 'tsx');
   config.resolve?.modules?.push(paths.src);
+  config.resolve?.modules?.unshift(paths.src);
 
   if (config.module?.rules) {
     // eslint-disable-next-line no-param-reassign
@@ -29,6 +30,9 @@ export default ({ config }: {config: webpack.Configuration}) => {
     use: ['@svgr/webpack'],
   });
   config.module?.rules?.push(buildScssLoader(true));
+  config.plugins?.push(new DefinePlugin({
+    __IS_DEV__: JSON.stringify(true),
+  }));
 
   return config;
 };
