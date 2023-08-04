@@ -6,16 +6,19 @@ import { LoginForm } from '../LoginForm/LoginForm';
 interface LoginModalProps {
    className?: string;
    isOpen?: boolean;
-   onClose?: () => void
+   onClose?: () => void;
 }
 export const LoginModal = (props: LoginModalProps) => {
-  const { className, isOpen, onClose } = props;
+  const {
+    className, isOpen, onClose
+  } = props;
 
   return (
     <Modal
       isOpen={isOpen}
       onClose={onClose}
       className={classNames(cls.loginModal, {}, [className])}
+      lazy
     >
       <LoginForm />
     </Modal>

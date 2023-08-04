@@ -1,6 +1,6 @@
 import { classNames } from 'shared/lib/classNames/classNames';
 import React, {
-  HTMLAttributes, memo, useCallback, useEffect, useState
+  HTMLAttributes, memo, useCallback, useEffect, useRef, useState
 } from 'react';
 import cls from './Input.module.scss';
 
@@ -12,6 +12,7 @@ interface InputProps extends HtmlInputProps {
   onChange?: (val: string) => void;
   placeholder?: string;
   type?: string;
+  autoFocus?: boolean
 }
 export const Input = memo((props: InputProps) => {
   const {
@@ -20,14 +21,22 @@ export const Input = memo((props: InputProps) => {
     onChange,
     placeholder,
     type = 'text',
+    autoFocus = false,
     ...otherProps
   } = props;
 
   const [isMounted, setIsMounted] = useState(false);
+  const inputRef = useRef<HTMLInputElement>();
 
   useEffect(() => {
     setIsMounted(true);
   }, [isMounted]);
+
+  useEffect(() => {
+    if (autoFocus) {
+      inputRef.current.focus();
+    }
+  }, [autoFocus]);
 
   const onChangeHandler = useCallback((e: React.ChangeEvent<HTMLInputElement>) => (
     onChange?.(e.target?.value)
@@ -37,6 +46,7 @@ export const Input = memo((props: InputProps) => {
     <div className={classNames(cls.inputWrapper, {}, [className])}>
       {placeholder && <div className={cls.placeholder}>{`${placeholder} > `}</div>}
       <input
+        ref={inputRef}
         className={cls.input}
         type={type}
         value={value}
