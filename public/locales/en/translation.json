@@ -7,9 +7,13 @@
   "Короткий язык": "En",
   "Главная": "Main",
   "О нас": "About us",
-  "Войти": "login",
+  "Войти": "Login",
+  "Выйти": "Logout",
   "уменьшить": "decrease",
   "увелиить": "increase",
-  "Отправить": "Send"
+  "Отправить": "Send",
+  "Отправка...": "Sending...",
+  "Форма авторици": "Authorization Form",
+  "Вы ввели некорректный данные": "Uncorrect username or password"
   
 }
