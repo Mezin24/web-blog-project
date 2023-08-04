@@ -3,11 +3,16 @@
 @import "./themes/normal";
 @import "./themes/dark";
 
-.app {
-  min-height: 100vh;
+body {
   font: var(--font-m);
   color: var(--primary-color);
   background: var(--bg-primary);
+}
+
+.app {
+  color: var(--primary-color);
+  background: var(--bg-primary);
+  min-height: 100vh;
 }
 
 .page-wrapper {

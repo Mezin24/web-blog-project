@@ -4,12 +4,21 @@
   padding: 10px 15px;
 }
 
-.clear {
+.disabled {
+  opacity: 0.5;
+}
+
+.clear,
+.clear_inverted {
   border: none;
   outline: none;
   padding: 0;
   margin: 0;
   background: transparent;
+}
+
+.clear_inverted {
+  color: var(--inverted-primary-color);
 }
 
 .background {
