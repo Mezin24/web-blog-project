@@ -1,26 +1,44 @@
-import { error } from 'console';
-import { getLoginState } from 'features/AuthByUsername/model/selectors/getLoginState/getLoginState';
-import { loginActions } from 'features/AuthByUsername/model/slice/loginSlice';
+import { getLoginError } from 'features/AuthByUsername/model/selectors/getLoginError/getLoginError';
+import {
+  getLoginIsLoading
+} from 'features/AuthByUsername/model/selectors/getLoginIsLoading/getLoginIsLoading';
+import {
+  getLoginPassword
+} from 'features/AuthByUsername/model/selectors/getLoginPassword/getLoginPassword';
+import {
+  getLoginUsername
+} from 'features/AuthByUsername/model/selectors/getLoginUsername/getLoginUsername';
+import {
+  loginByUsername
+} from 'features/AuthByUsername/model/services/loginByUsername/loginByUsername';
+import { loginActions, loginReducer } from 'features/AuthByUsername/model/slice/loginSlice';
 import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { classNames } from 'shared/lib/classNames/classNames';
+import {
+  DynamicMaduleLoader,
+  ReducersList
+} from 'shared/lib/components/DynamicMaduleLoader/DynamicMaduleLoader';
 import { Button, ButtonTheme } from 'shared/ui/Button/Button';
 import { Input } from 'shared/ui/Input/Input';
-import {
-  loginByUsername
-} from 'features/AuthByUsername/model/services/loginByUsername/loginByUsername';
 import { Text, TextTheme } from 'shared/ui/Text/Text';
 import cls from './LoginForm.module.scss';
 
-interface LoginFormProps {
+export interface LoginFormProps {
    className?: string;
 }
-export const LoginForm = ({ className }: LoginFormProps) => {
+
+const initialReducers: ReducersList = {
+  login: loginReducer
+};
+
+const LoginForm = ({ className }: LoginFormProps) => {
   const { t } = useTranslation();
-  const {
-    username, password, isLoading, error
-  } = useSelector(getLoginState);
+  const username = useSelector(getLoginUsername);
+  const password = useSelector(getLoginPassword);
+  const isLoading = useSelector(getLoginIsLoading);
+  const error = useSelector(getLoginError);
   const dispatch = useDispatch();
 
   const onChangeUsername = useCallback((value: string) => {
@@ -36,32 +54,36 @@ export const LoginForm = ({ className }: LoginFormProps) => {
   }, [dispatch, password, username]);
 
   return (
-    <form className={classNames(cls.loginForm, {}, [className])}>
-      <Text title={t('Форма авторици')} />
-      {error && <Text text={t('Вы ввели некорректный данные')} theme={TextTheme.ERROR} />}
-      <Input
-        type="text"
-        className={cls.input}
-        placeholder={t('Введите username')}
-        onChange={onChangeUsername}
-        value={username}
-        autoFocus
-      />
-      <Input
-        type="text"
-        className={cls.input}
-        placeholder={t('Введите пароль')}
-        onChange={onChangePassword}
-        value={password}
-      />
-      <Button
-        onClick={onLogin}
-        className={cls.submitBtn}
-        theme={ButtonTheme.OUTLINE}
-        disabled={isLoading}
-      >
-        {isLoading ? t('Отправка...') : t('Отправить')}
-      </Button>
-    </form>
+    <DynamicMaduleLoader reducers={initialReducers} removeAfterUnmount>
+      <form className={classNames(cls.loginForm, {}, [className])}>
+        <Text title={t('Форма авторици')} />
+        {error && <Text text={t('Вы ввели некорректный данные')} theme={TextTheme.ERROR} />}
+        <Input
+          type="text"
+          className={cls.input}
+          placeholder={t('Введите username')}
+          onChange={onChangeUsername}
+          value={username}
+          autoFocus
+        />
+        <Input
+          type="text"
+          className={cls.input}
+          placeholder={t('Введите пароль')}
+          onChange={onChangePassword}
+          value={password}
+        />
+        <Button
+          onClick={onLogin}
+          className={cls.submitBtn}
+          theme={ButtonTheme.OUTLINE}
+          disabled={isLoading}
+        >
+          {isLoading ? t('Отправка...') : t('Отправить')}
+        </Button>
+      </form>
+    </DynamicMaduleLoader>
   );
 };
+
+export default LoginForm;
