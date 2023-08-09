@@ -22,16 +22,6 @@
   margin-top: 15px;
 }
 
-.link_item {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-}
-
-.link_icon {
-  fill: var(--inverted-primary-color);
-}
-
 .switchers {
   position: absolute;
   width: 100%;
@@ -53,11 +43,5 @@
     padding-left: 0;
     width: 100%;
     align-items: center;
-  }
-
-  .link_text {
-    opacity: 0;
-    transition: 0.2 all;
-    width: 0;
   }
 }
