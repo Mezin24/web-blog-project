@@ -7,14 +7,14 @@ import { App } from './app/App';
 import { ThemeProvider } from './app/providers/theme/ThemeProvider';
 
 render(
-  <StoreProvider>
-    <BrowserRouter>
+  <BrowserRouter>
+    <StoreProvider>
       <ThemeProvider>
         <ErrorBoundary>
           <App />
         </ErrorBoundary>
       </ThemeProvider>
-    </BrowserRouter>
-  </StoreProvider>,
+    </StoreProvider>
+  </BrowserRouter>,
   document.getElementById('root')
 );
