@@ -4,7 +4,10 @@ import {
   DynamicModuleLoader,
   ReducersList
 } from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
-import { profileReducer } from 'entities/Profile';
+import { fetchProfileData, profileReducer } from 'entities/Profile';
+import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
+import { useEffect } from 'react';
+import { ProfileCard } from 'entities/Profile/ui/ProfileCard/ProfileCard';
 import cls from './ProfilePage.module.scss';
 
 interface ProfilePageProps {
@@ -16,11 +19,16 @@ const initailReducers: ReducersList = {
 };
 
 const ProfilePage = ({ className }: ProfilePageProps) => {
-  const { t } = useTranslation();
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(fetchProfileData());
+  }, [dispatch]);
+
   return (
     <DynamicModuleLoader reducers={initailReducers} removeAfterUnmount>
       <div className={classNames(cls.profilePage, {}, [className])}>
-        {t('Профиль')}
+        <ProfileCard />
       </div>
     </DynamicModuleLoader>
   );
