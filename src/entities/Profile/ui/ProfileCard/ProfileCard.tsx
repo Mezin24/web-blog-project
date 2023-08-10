@@ -1,7 +1,9 @@
 import { classNames } from 'shared/lib/classNames/classNames';
 import { useSelector } from 'react-redux';
 import { getProfileData } from 'entities/Profile/model/selectors/getProfileData/getProfileData';
-import { getProfileIsLoading } from 'entities/Profile/model/selectors/getProfileIsLoading/getProfileIsLoading';
+import {
+  getProfileIsLoading
+} from 'entities/Profile/model/selectors/getProfileIsLoading/getProfileIsLoading';
 import { Text } from 'shared/ui/Text/Text';
 import { useTranslation } from 'react-i18next';
 import { Button, ButtonTheme } from 'shared/ui/Button/Button';

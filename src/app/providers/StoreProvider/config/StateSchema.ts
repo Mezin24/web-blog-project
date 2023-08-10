@@ -31,11 +31,10 @@ export interface ReduxStoreWithManager extends ToolkitStore {
 
 export interface ThunkExtraArg {
   api: AxiosInstance,
-  navigate: (to: To, options?: NavigateOptions) => void
+  navigate?: (to: To, options?: NavigateOptions) => void
 }
 
 export interface ThunkConfig<T> {
   rejectValue: T,
   extra: ThunkExtraArg,
-  dispatch: Dispatch
 }

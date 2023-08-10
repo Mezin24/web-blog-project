@@ -26,14 +26,14 @@ export const Input = memo((props: InputProps) => {
   } = props;
 
   const [isMounted, setIsMounted] = useState(false);
-  const inputRef = useRef<HTMLInputElement>();
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
     setIsMounted(true);
   }, [isMounted]);
 
   useEffect(() => {
-    if (autoFocus) {
+    if (autoFocus && inputRef.current) {
       inputRef.current.focus();
     }
   }, [autoFocus]);
