@@ -9,7 +9,12 @@ import { PageLoader } from 'widgets/PageLoader';
 export const AppRouter = memo(() => {
   const isAuth = useSelector(getAuthData);
   const routes = useMemo(
-    () => Object.values(routeConfig).filter((route) => !(!isAuth && route.auth)),
+    () => Object.values(routeConfig).filter((route) => {
+      if (!isAuth && route.auth) {
+        return false;
+      }
+      return true;
+    }),
     [isAuth]
   );
 
