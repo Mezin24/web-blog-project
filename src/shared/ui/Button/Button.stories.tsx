@@ -44,6 +44,12 @@ Outline.args = {
   theme: ButtonTheme.OUTLINE
 };
 
+export const OutlineRed = Template.bind({});
+OutlineRed.args = {
+  children: 'Text',
+  theme: ButtonTheme.OUTLINE_RED
+};
+
 export const SquareM = Template.bind({});
 SquareM.args = {
   children: '>',
@@ -85,9 +91,16 @@ ClearDark.decorators = [ThemeDecorator(Theme.DARK)];
 export const OutlineDark = Template.bind({});
 OutlineDark.args = {
   children: 'Text',
-  theme: ButtonTheme.OUTLINE
+  theme: ButtonTheme.OUTLINE_RED
 };
 OutlineDark.decorators = [ThemeDecorator(Theme.DARK)];
+
+export const OutlineRedDark = Template.bind({});
+OutlineRedDark.args = {
+  children: 'Text',
+  theme: ButtonTheme.OUTLINE
+};
+OutlineRedDark.decorators = [ThemeDecorator(Theme.DARK)];
 
 export const SquareMDark = Template.bind({});
 SquareMDark.args = {

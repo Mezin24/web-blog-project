@@ -1,0 +1,17 @@
+.selectWrapper {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.select {
+  padding: 2px 10px 2px 2px;
+  border: 1px solid var(--primary-color);
+  background-color: transparent;
+  color: inherit;
+}
+
+.option {
+  background-color: var(--inverted-bg-primary);
+  color: var(--inverted-primary-color);
+}

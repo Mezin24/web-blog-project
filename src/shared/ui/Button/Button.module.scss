@@ -35,11 +35,20 @@
   color: var(--primary-color);
 }
 
-.outline {
-  border: 1px solid var(--primary-color);
+.outline,
+.outline_red {
   padding: 10px 15px;
   color: var(--primary-color);
   background-color: transparent;
+}
+
+.outline {
+  border: 1px solid var(--primary-color);
+}
+
+.outline_red {
+  border: 1px solid var(--error-text);
+  color: var(--error-text);
 }
 
 .square {
