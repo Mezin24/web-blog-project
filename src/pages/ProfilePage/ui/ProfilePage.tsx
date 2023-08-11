@@ -1,27 +1,29 @@
+import { Country } from 'entities/Country';
+import { Currency } from 'entities/Currency';
+import {
+  fetchProfileData,
+  getProfileError,
+  getProfileIsLoading,
+  getProfileReadonly,
+  getProfileValidationErrors,
+  profileActions,
+  profileReducer
+} from 'entities/Profile';
+import { getProfileForm } from 'entities/Profile/model/selectors/getProfileForm/getProfileForm';
+import { ProfileCard } from 'entities/Profile/ui/ProfileCard/ProfileCard';
+import { useCallback, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { classNames } from 'shared/lib/classNames/classNames';
 import {
   DynamicModuleLoader,
   ReducersList
 } from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
-import {
-
-  fetchProfileData,
-  getProfileData,
-  getProfileError,
-  getProfileIsLoading,
-  getProfileReadonly,
-  profileActions,
-  profileReducer
-} from 'entities/Profile';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { useCallback, useEffect } from 'react';
-import { ProfileCard } from 'entities/Profile/ui/ProfileCard/ProfileCard';
-import { useSelector } from 'react-redux';
-import { getProfileForm } from 'entities/Profile/model/selectors/getProfileForm/getProfileForm';
-import { Currency } from 'entities/Currency';
-import { Country } from 'entities/Country';
-import cls from './ProfilePage.module.scss';
+import { useTranslation } from 'react-i18next';
+import { ValidationErrors } from 'entities/Profile/model/types/profile';
+import { Text, TextTheme } from 'shared/ui/Text/Text';
 import { ProfilePageHeader } from './ProfilePageHeader/ProfilePageHeader';
+import cls from './ProfilePage.module.scss';
 
 interface ProfilePageProps {
    className?: string;
@@ -33,11 +35,20 @@ const initialReducers: ReducersList = {
 
 const ProfilePage = ({ className }: ProfilePageProps) => {
   const dispatch = useAppDispatch();
-  const data = useSelector(getProfileData);
   const formData = useSelector(getProfileForm);
   const isLoading = useSelector(getProfileIsLoading);
   const error = useSelector(getProfileError);
   const readonly = useSelector(getProfileReadonly);
+  const validationErrors = useSelector(getProfileValidationErrors);
+  const { t } = useTranslation('profile');
+
+  const validationTranslations = {
+    [ValidationErrors.INVALID_DATA]: t('Имя и фамилия обязательны'),
+    [ValidationErrors.INVALID_AGE]: t('Некорректный возраст'),
+    [ValidationErrors.INVALID_COUNTRY]: t('Некорректный регион'),
+    [ValidationErrors.SERVER_ERROR]: t('Серверная ошибка присохранении'),
+    [ValidationErrors.NO_DATA]: t('Данные не указаны'),
+  };
 
   const onChangeFirstname = useCallback((value?: string) => {
     dispatch(profileActions.setProfileData({
@@ -107,6 +118,13 @@ const ProfilePage = ({ className }: ProfilePageProps) => {
           onEdit={onSetEdit}
           onCancel={onCancelEdit}
         />
+        {validationErrors?.length && validationErrors.map((error) => (
+          <Text
+            key={error}
+            theme={TextTheme.ERROR}
+            text={validationTranslations[error]}
+          />
+        ))}
         <ProfileCard
           data={formData}
           error={error}
