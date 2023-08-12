@@ -7,6 +7,7 @@ import {
 } from 'entities/Profile/model/services/updateProfileData/updateProfileData';
 import { useCallback } from 'react';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
+import { useTranslation } from 'react-i18next';
 import cls from './ProfilePageHeader.module.scss';
 
 interface ProfilePageHeaderProps {
@@ -19,6 +20,7 @@ export const ProfilePageHeader = (props: ProfilePageHeaderProps) => {
   const {
     className, readonly, onCancel, onEdit
   } = props;
+  const { t } = useTranslation('profile');
 
   const dispatch = useAppDispatch();
 

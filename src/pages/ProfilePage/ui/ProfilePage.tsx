@@ -107,7 +107,9 @@ const ProfilePage = ({ className }: ProfilePageProps) => {
   }, [dispatch]);
 
   useEffect(() => {
-    dispatch(fetchProfileData());
+    if (__PROJECT__ === 'frontend') {
+      dispatch(fetchProfileData());
+    }
   }, [dispatch]);
 
   return (

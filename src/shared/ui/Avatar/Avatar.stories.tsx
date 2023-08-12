@@ -1,6 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { Avatar } from './Avatar';
-// @ts-ignore
 import AvatarImg from './avatar.jpeg';
 
 export default {
