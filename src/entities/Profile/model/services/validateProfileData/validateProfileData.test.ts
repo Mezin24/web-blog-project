@@ -25,7 +25,7 @@ describe('validateProfileData', () => {
   });
 
   test('with incorrect age', () => {
-    const result = validateProfileData({ ...data, age: 'ds' });
+    const result = validateProfileData({ ...data, age: undefined });
     expect(result).toEqual([ValidationErrors.INVALID_AGE]);
   });
 
