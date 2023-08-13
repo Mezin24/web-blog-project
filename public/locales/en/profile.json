@@ -1,0 +1,15 @@
+{
+  "Профиль": "Profile",
+  "Редактировать": "Edit",
+  "Сохранить": "Save",
+  "Отменить": "Cancel",
+  "Ваше имя": "First name",
+  "Ваша фамилия": "Last name",
+  "Произошла ошибка призагрузке профиля": "Something happend while fetching profile",
+  "Попробуйте обновить страницу": "Try to reload the page",
+  "Имя и фамилия обязательны": "Name and lastname are required",
+  "Некорректный возраст": "Incorrect age",
+  "Некорректный регион": "Incorrect region",
+  "Серверная ошибка присохранении": "Server side error while updating",
+  "Данные не указаны": "No data"
+}

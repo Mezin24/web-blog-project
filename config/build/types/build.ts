@@ -11,10 +11,13 @@ export interface BuildOptions {
   mode: BuildMode,
   paths: BuildPaths,
   isDev: boolean,
-  port: number
+  port: number,
+  apiUrl: string,
+  project: 'frontend' | 'storybook' | 'jest'
 }
 
 export interface EnvOptions {
   port: number,
   mode: BuildMode
+  apiUrl: string
 }

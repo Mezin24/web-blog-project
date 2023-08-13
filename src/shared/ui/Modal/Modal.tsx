@@ -22,7 +22,7 @@ export const Modal = (props: ModalProps) => {
 
   const [isClosing, setIsClosing] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
-  const timerRef = useRef<ReturnType<typeof setTimeout>>(null);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const onCloseModal = useCallback(() => {
     if (onClose) {
@@ -51,12 +51,14 @@ export const Modal = (props: ModalProps) => {
       window.addEventListener('keydown', onKeyDown);
     }
     return () => {
-      clearTimeout(timerRef.current);
+      if (timerRef.current) {
+        clearTimeout(timerRef.current);
+      }
       window.removeEventListener('keydown', onKeyDown);
     };
   }, [isOpen, onKeyDown]);
 
-  const mods: Record<string, boolean> = {
+  const mods: Record<string, boolean | undefined> = {
     [cls.opened]: isOpen,
     [cls.isClosing]: isClosing
   };
