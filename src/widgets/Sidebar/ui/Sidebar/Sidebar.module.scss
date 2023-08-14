@@ -5,6 +5,7 @@
   color: var(--inverted-primary-color);
   transition: width 0.3s;
   position: relative;
+  flex-shrink: 0;
 }
 
 .toggle-btn {
