@@ -1,30 +1,34 @@
-type ArticleBlockTypes = 'CODE' | 'TEXT' | 'IMAGE';
+export enum ArticleBlockTypes {
+  CODE = 'CODE',
+  IMAGE = 'IMAGE',
+  TEXT = 'TEXT'
+}
 
 interface ArticleBlockBase {
   id: string;
   type: ArticleBlockTypes
 }
 
-interface ArticleCodeBlock extends ArticleBlockBase {
-  type: 'CODE',
+export interface ArticleCodeBlock extends ArticleBlockBase {
+  type: ArticleBlockTypes.CODE,
   code: string
 }
 
-interface ArticleImageBlock extends ArticleBlockBase {
-  type: 'IMAGE',
+export interface ArticleImageBlock extends ArticleBlockBase {
+  type: ArticleBlockTypes.IMAGE,
   src: string,
   title: string
 }
 
-interface ArticleTextBlock extends ArticleBlockBase {
-  type: 'TEXT',
+export interface ArticleTextBlock extends ArticleBlockBase {
+  type: ArticleBlockTypes.TEXT,
   title: string,
   paragraphs: string[]
 }
 
-type ArticleBlock = ArticleCodeBlock | ArticleImageBlock |ArticleTextBlock
+export type ArticleBlock = ArticleCodeBlock | ArticleImageBlock |ArticleTextBlock
 
-enum ArticleType {
+export enum ArticleType {
   IT = 'it',
   SCIENCE = 'science'
 }

@@ -9,3 +9,25 @@
 .skeleton {
   margin-top: 15px;
 }
+
+.imgWrapper {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
+.img {
+  margin-bottom: 20px;
+}
+
+.types {
+  margin-top: 8px;
+  display: flex;
+  gap: 10px;
+}
+
+.info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
