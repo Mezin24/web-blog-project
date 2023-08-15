@@ -22,6 +22,8 @@ import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { useTranslation } from 'react-i18next';
 import { ValidationErrors } from 'entities/Profile/model/types/profile';
 import { Text, TextTheme } from 'shared/ui/Text/Text';
+import { useInitialEffect } from 'shared/lib/hooks/useInitialEffect/useInitialEffect';
+import { useParams } from 'react-router-dom';
 import { ProfilePageHeader } from './ProfilePageHeader/ProfilePageHeader';
 import cls from './ProfilePage.module.scss';
 
@@ -41,6 +43,7 @@ const ProfilePage = ({ className }: ProfilePageProps) => {
   const readonly = useSelector(getProfileReadonly);
   const validationErrors = useSelector(getProfileValidationErrors);
   const { t } = useTranslation('profile');
+  const { id } = useParams<{id: string}>();
 
   const validationTranslations = {
     [ValidationErrors.INVALID_DATA]: t('Имя и фамилия обязательны'),
@@ -106,11 +109,11 @@ const ProfilePage = ({ className }: ProfilePageProps) => {
     dispatch(profileActions.cancelEdit());
   }, [dispatch]);
 
-  useEffect(() => {
-    if (__PROJECT__ === 'frontend') {
-      dispatch(fetchProfileData());
+  useInitialEffect(() => {
+    if (id) {
+      dispatch(fetchProfileData(id));
     }
-  }, [dispatch]);
+  });
 
   return (
     <DynamicModuleLoader reducers={initialReducers} removeAfterUnmount>

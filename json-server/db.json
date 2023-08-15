@@ -99,7 +99,7 @@
       "id": "3",
       "text": "some comment 3",
       "articleId": "1",
-      "userId": "1"
+      "userId": "2"
     }
   ],
   "users": [
@@ -118,14 +118,28 @@
       "avatar": "https://funnyexpo.com/wp-content/uploads/2017/08/Image-1-23.jpg"
     }
   ],
-  "profile": {
-    "name": "Павел",
-    "lastname": "Мezencev",
-    "age": 36,
-    "currency": "RUB",
-    "country": "Russia",
-    "city": "Обнинск",
-    "username": "admin",
-    "avatar": "https://i.pinimg.com/originals/90/7a/b1/907ab15afa89ef232c9b180fb89b3557.jpg"
-  }
+  "profile": [
+    {
+      "id": "1",
+      "name": "Max",
+      "lastname": "Screecher",
+      "age": 6,
+      "currency": "RUB",
+      "country": "Belarus",
+      "city": "Moscow",
+      "username": "admin123",
+      "avatar": "https://i.pinimg.com/originals/90/7a/b1/907ab15afa89ef232c9b180fb89b3557.jpg"
+    },
+    {
+      "id": "2",
+      "name": "Pavel",
+      "lastname": "Mezentcev",
+      "age": 36,
+      "currency": "RUB",
+      "country": "Belarus",
+      "city": "Obninsk",
+      "username": "user",
+      "avatar": "https://funnyexpo.com/wp-content/uploads/2017/08/Image-1-23.jpg"
+    }
+  ]
 }

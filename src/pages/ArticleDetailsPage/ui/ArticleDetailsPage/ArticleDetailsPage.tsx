@@ -24,6 +24,7 @@ import {
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { useInitialEffect } from 'shared/lib/hooks/useInitialEffect/useInitialEffect';
 import { Text } from 'shared/ui/Text/Text';
+import { AddCommentForm } from 'features/addCommentForm/ui/AddCommentForm/AddCommentForm';
 import cls from './ArticleDetailsPage.module.scss';
 
 interface ArticleDetailsPageProps {
@@ -60,6 +61,7 @@ const ArticleDetailsPage: FC<ArticleDetailsPageProps> = (props) => {
       <div className={classNames(cls.articleDetailsPage, {}, [className])}>
         <ArticleDetailsComponent id={id} />
         <Text title={t('Комментарии')} className={cls.title} />
+        <AddCommentForm />
         <CommentsList
           isLoading={isLoading}
           comments={comments}
