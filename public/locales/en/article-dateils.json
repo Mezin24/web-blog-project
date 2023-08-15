@@ -1,3 +1,5 @@
 {
-  "Произошла ошибка при загрузке статьи": "Some problem occured while loading the article"
+  "Произошла ошибка при загрузке статьи": "Some problem occured while loading the article",
+  "Комментарии": "Comments",
+  "Статья не найдена": "Article not found",
 }

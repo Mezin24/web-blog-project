@@ -1,7 +1,8 @@
-import { ComponentStory, ComponentMeta } from '@storybook/react';
-import { StoreDecorator } from 'shared/config/storybook/StoreDecorator/StoreDecorator';
-import { ArticleBlockTypes, ArticleType } from 'entities/Article/model/types/article';
-import { ArticleDetailsComponent } from './ArticleDetailsComponent';
+import { TestAsyncThunk } from 'shared/lib/tests/TestAsyncThunk/TestAsyncThunk';
+import { Country } from 'entities/Country';
+import { Currency } from 'entities/Currency';
+import { fetchArticleDetails } from './fetchArticleDetails';
+import { ArticleType, ArticleBlockTypes } from '../types/article';
 
 const article = {
   id: '1',
@@ -73,36 +74,25 @@ const article = {
   ]
 };
 
-export default {
-  title: 'entity/ArticleDetailsComponent',
-  component: ArticleDetailsComponent,
-  argTypes: {
-    backgroundColor: { control: 'color' },
-  },
-} as ComponentMeta<typeof ArticleDetailsComponent>;
+describe('fetchArticleDetails', () => {
+  test('success fetching', async () => {
+    const thunk = new TestAsyncThunk(fetchArticleDetails);
+    thunk.api.get.mockReturnValue(Promise.resolve({
+      data: article
+    }));
+    const result = await thunk.callThunk('1');
 
-const Template: ComponentStory<typeof ArticleDetailsComponent> = (args) => <ArticleDetailsComponent {...args} />;
+    expect(thunk.api.get).toHaveBeenCalledTimes(1);
+    expect(result.meta.requestStatus).toBe('fulfilled');
+    expect(result.payload).toEqual(article);
+  });
 
-export const Normal = Template.bind({});
-Normal.args = {};
-Normal.decorators = [StoreDecorator({
-  articleDetails: {
-    data: article
-  }
-})];
+  test('error login', async () => {
+    const thunk = new TestAsyncThunk(fetchArticleDetails);
+    thunk.api.get.mockReturnValue(Promise.resolve({ status: 403 }));
+    const result = await thunk.callThunk('1');
 
-export const loading = Template.bind({});
-loading.args = {};
-loading.decorators = [StoreDecorator({
-  articleDetails: {
-    isLoading: true
-  }
-})];
-
-export const error = Template.bind({});
-error.args = {};
-error.decorators = [StoreDecorator({
-  articleDetails: {
-    error: 'true'
-  }
-})];
+    expect(thunk.api.get).toHaveBeenCalledTimes(1);
+    expect(result.meta.requestStatus).toBe('rejected');
+  });
+});
