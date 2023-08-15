@@ -1,33 +1,71 @@
-import { FC } from 'react';
-import { useTranslation } from 'react-i18next';
-import { classNames } from 'shared/lib/classNames/classNames';
 import {
   ArticleDetailsComponent
 } from 'entities/Article/ui/ArticleDetailsComponent/ArticleDetailsComponent';
+import { CommentsList } from 'entities/Comment';
+import {
+  getArticleDetailsCommentError,
+  getArticleDetailsCommentIsLoading
+} from 'pages/ArticleDetailsPage/model/selectors/comments';
+import {
+  fetchArticleDetailsComments
+} from 'pages/ArticleDetailsPage/model/services/fetchArticleDetailsComments';
+import {
+  articleDetailsCommentReducer, getArticleComments
+} from 'pages/ArticleDetailsPage/model/slice/articleDetailsCommentSlice';
+import { FC } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import { classNames } from 'shared/lib/classNames/classNames';
+import {
+  DynamicModuleLoader,
+  ReducersList
+} from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
+import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
+import { useInitialEffect } from 'shared/lib/hooks/useInitialEffect/useInitialEffect';
+import { Text } from 'shared/ui/Text/Text';
 import cls from './ArticleDetailsPage.module.scss';
 
 interface ArticleDetailsPageProps {
    className?: string;
 }
 
+const reducers: ReducersList = {
+  articleDetailsComments: articleDetailsCommentReducer
+};
+
 const ArticleDetailsPage: FC<ArticleDetailsPageProps> = (props) => {
   const { className } = props;
-  const { t } = useTranslation();
+  const { t } = useTranslation('article-dateils');
   const { id } = useParams<{id: string}>();
+  const isLoading = useSelector(getArticleDetailsCommentIsLoading);
+  const error = useSelector(getArticleDetailsCommentError);
+  const comments = useSelector(getArticleComments.selectAll);
+  const dispatch = useAppDispatch();
 
-  if (!id) {
+  useInitialEffect(() => {
+    dispatch(fetchArticleDetailsComments(id));
+  });
+
+  if (!id || error) {
     return (
       <div className={classNames(cls.articleDetailsPage, {}, [className])}>
-        Error
+        {t('Статья не найдена')}
       </div>
     );
   }
 
   return (
-    <div className={classNames(cls.articleDetailsPage, {}, [className])}>
-      <ArticleDetailsComponent id={id} />
-    </div>
+    <DynamicModuleLoader reducers={reducers} removeAfterUnmount>
+      <div className={classNames(cls.articleDetailsPage, {}, [className])}>
+        <ArticleDetailsComponent id={id} />
+        <Text title={t('Комментарии')} className={cls.title} />
+        <CommentsList
+          isLoading={isLoading}
+          comments={comments}
+        />
+      </div>
+    </DynamicModuleLoader>
   );
 };
 
