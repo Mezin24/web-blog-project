@@ -19,7 +19,9 @@
       "img": "https://yt3.googleusercontent.com/ytc/AGIKgqNuJyl39bKW0kcZ3o-J9B9lA2mWi-WYJbKJhOEr=s900-c-k-c0x00ffffff-no-rj",
       "views": 1022,
       "createdAt": "26.02.2022",
-      "type": ["IT"],
+      "type": [
+        "IT"
+      ],
       "blocks": [
         {
           "id": "1",
@@ -100,6 +102,24 @@
       "text": "some comment 3",
       "articleId": "1",
       "userId": "2"
+    },
+    {
+      "text": "test",
+      "articleId": "1",
+      "userId": "1",
+      "id": "AfPBBBy"
+    },
+    {
+      "text": "hello world",
+      "articleId": "1",
+      "userId": "1",
+      "id": "ZzQkfsG"
+    },
+    {
+      "text": "test user",
+      "articleId": "1",
+      "userId": "2",
+      "id": "zNT8I_8"
     }
   ],
   "users": [
