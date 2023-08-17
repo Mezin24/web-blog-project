@@ -20,6 +20,8 @@ import {
 import { useInitialEffect } from 'shared/lib/hooks/useInitialEffect/useInitialEffect';
 import { ArticleView } from 'entities/Article/model/types/article';
 import { ArticleViewSelector } from 'entities/Article';
+import { Page } from 'shared/ui/Page/Page';
+import { fetchNextArticlePage } from 'pages/ArticlesPage/model/services/fetchNextArticlePage/fetchNextArticlePage';
 import cls from './ArticlesPage.module.scss';
 
 interface ArticlesPageProps {
@@ -40,8 +42,12 @@ const ArticlesPage: FC<ArticlesPageProps> = (props) => {
 
   useInitialEffect(() => {
     dispatch(articlesPagetActions.initView());
-    dispatch(fetchArticlesList());
+    dispatch(fetchArticlesList({ page: 1 }));
   });
+
+  const onLoadMore = useCallback(() => {
+    dispatch(fetchNextArticlePage());
+  }, [dispatch]);
 
   const onChangeView = useCallback((view: ArticleView) => {
     dispatch(articlesPagetActions.setView(view));
@@ -49,14 +55,14 @@ const ArticlesPage: FC<ArticlesPageProps> = (props) => {
 
   return (
     <DynamicModuleLoader reducers={reducers} removeAfterUnmount={false}>
-      <div className={classNames(cls.articlesPage, {}, [className])}>
+      <Page onScrollCb={onLoadMore} className={classNames(cls.articlesPage, {}, [className])}>
         <ArticleViewSelector view={view || ArticleView.SMALL} onChangView={onChangeView} />
         <ArticlesList
           articles={articles}
           view={view}
           isLoading={isLoading}
         />
-      </div>
+      </Page>
     </DynamicModuleLoader>
   );
 };

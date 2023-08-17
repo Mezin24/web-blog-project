@@ -3,7 +3,11 @@ import { Article } from 'entities/Article';
 import { ArticleView } from 'entities/Article/model/types/article';
 
 export interface ArticlesPageSchema extends EntityState<Article> {
-  view: ArticleView,
   error?: string,
   isLoading?: boolean,
+
+  view: ArticleView,
+  page?: number;
+  limit?: number
+  hasMore?: boolean
 }
