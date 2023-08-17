@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getAuthData } from 'entities/User/model/selectors/getAuthData/getAuthData';
 import { userActions } from 'entities/User';
 import { USER_LOCALSTORAGE_KEY } from 'shared/lib/const/localStorage';
+import { useNavigate } from 'react-router-dom';
 import cls from './Navbar.module.scss';
 
 interface NavbarProps {
@@ -18,12 +19,14 @@ export const Navbar = memo(({ className }: NavbarProps) => {
   const { t } = useTranslation();
   const authData = useSelector(getAuthData);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const onCloseModal = () => setIsAuthOpen(false);
   const onOpenModal = () => setIsAuthOpen(true);
   const onLogout = () => {
     dispatch(userActions.logout());
     localStorage.removeItem(USER_LOCALSTORAGE_KEY);
+    navigate('/');
   };
 
   if (authData) {

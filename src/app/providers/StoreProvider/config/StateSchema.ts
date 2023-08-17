@@ -1,5 +1,8 @@
 import {
-  ReducersMapObject, Action, CombinedState, Reducer, Dispatch,
+  Action, CombinedState,
+  Dispatch,
+  Reducer,
+  ReducersMapObject,
 } from '@reduxjs/toolkit';
 import { ToolkitStore } from '@reduxjs/toolkit/dist/configureStore';
 import { AxiosInstance } from 'axios';
@@ -9,9 +12,9 @@ import { ProfileSchema } from 'entities/Profile';
 import { UserSchema } from 'entities/User';
 import { LoginSchema } from 'features/AuthByUsername';
 import { AddCommentFormSchema } from 'features/addCommentForm';
-import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 
 import { ArticleDetailsCommentsSchema } from 'pages/ArticleDetailsPage';
+import { ArticlesPageSchema } from 'pages/ArticlesPage';
 import { NavigateOptions, To } from 'react-router-dom';
 
 export interface StateSchema {
@@ -21,7 +24,8 @@ export interface StateSchema {
   profile?: ProfileSchema,
   articleDetails?: ArticleSchema,
   articleDetailsComments?: ArticleDetailsCommentsSchema,
-  addCommentForm?: AddCommentFormSchema
+  addCommentForm?: AddCommentFormSchema,
+  articlesPage?: ArticlesPageSchema
 }
 
 export type StateSchemaKeys = keyof StateSchema
