@@ -36,7 +36,7 @@ const AddCommentForm: FC<AddCommentFormProps> = (props) => {
   }, [dispatch]);
 
   const onSendCommentHandler = useCallback(() => {
-    onSendComment(text || '');
+    onSendComment(text);
     dispatch(addCommentFormActions.setText(''));
   }, [dispatch, onSendComment, text]);
 
@@ -45,7 +45,7 @@ const AddCommentForm: FC<AddCommentFormProps> = (props) => {
       <div className={classNames(cls.addCommentForm, {}, [className])}>
         <Input
           placeholder={t('Введите комментарий')}
-          value={text || ''}
+          value={text}
           onChange={onChangeComment}
           className={cls.input}
         />
