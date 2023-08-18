@@ -1,10 +1,17 @@
+import { ArticleViewSelector } from 'entities/Article';
+import { ArticleView } from 'entities/Article/model/types/article';
 import { ArticlesList } from 'entities/Article/ui/ArticlesList/ArticlesList';
 import {
   getArticlePageError,
   getArticlePageIsLoading,
   getArticlePageView
 } from 'pages/ArticlesPage/model/selectors/articlesPageSelectors';
-import { fetchArticlesList } from 'pages/ArticlesPage/model/services/fetchArticlesList';
+import {
+  fetchNextArticlePage
+} from 'pages/ArticlesPage/model/services/fetchNextArticlePage/fetchNextArticlePage';
+import {
+  initArticlesPage
+} from 'pages/ArticlesPage/model/services/initArticlesPage/initArticlesPage';
 import {
   articlesPageReducer,
   articlesPagetActions,
@@ -18,10 +25,7 @@ import {
   ReducersList
 } from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 import { useInitialEffect } from 'shared/lib/hooks/useInitialEffect/useInitialEffect';
-import { ArticleView } from 'entities/Article/model/types/article';
-import { ArticleViewSelector } from 'entities/Article';
 import { Page } from 'shared/ui/Page/Page';
-import { fetchNextArticlePage } from 'pages/ArticlesPage/model/services/fetchNextArticlePage/fetchNextArticlePage';
 import cls from './ArticlesPage.module.scss';
 
 interface ArticlesPageProps {
@@ -41,8 +45,7 @@ const ArticlesPage: FC<ArticlesPageProps> = (props) => {
   const dispatch = useDispatch();
 
   useInitialEffect(() => {
-    dispatch(articlesPagetActions.initView());
-    dispatch(fetchArticlesList({ page: 1 }));
+    dispatch(initArticlesPage());
   });
 
   const onLoadMore = useCallback(() => {
