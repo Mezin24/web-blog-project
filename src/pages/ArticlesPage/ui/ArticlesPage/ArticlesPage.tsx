@@ -1,8 +1,5 @@
-import { ArticleViewSelector } from 'entities/Article';
-import { ArticleView } from 'entities/Article/model/types/article';
 import { ArticlesList } from 'entities/Article/ui/ArticlesList/ArticlesList';
 import {
-  getArticlePageError,
   getArticlePageIsLoading,
   getArticlePageView
 } from 'pages/ArticlesPage/model/selectors/articlesPageSelectors';
@@ -14,18 +11,19 @@ import {
 } from 'pages/ArticlesPage/model/services/initArticlesPage/initArticlesPage';
 import {
   articlesPageReducer,
-  articlesPagetActions,
   getArticles
 } from 'pages/ArticlesPage/model/slice/articlesSlice';
 import { FC, useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { classNames } from 'shared/lib/classNames/classNames';
 import {
   DynamicModuleLoader,
   ReducersList
 } from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
+import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { useInitialEffect } from 'shared/lib/hooks/useInitialEffect/useInitialEffect';
 import { Page } from 'shared/ui/Page/Page';
+import { ArticlesPageFilters } from '../ArticlesPageFilters/ArticlesPageFilters';
 import cls from './ArticlesPage.module.scss';
 
 interface ArticlesPageProps {
@@ -39,10 +37,9 @@ const reducers:ReducersList = {
 const ArticlesPage: FC<ArticlesPageProps> = (props) => {
   const { className } = props;
   const isLoading = useSelector(getArticlePageIsLoading);
-  const error = useSelector(getArticlePageError);
   const view = useSelector(getArticlePageView);
   const articles = useSelector(getArticles.selectAll);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   useInitialEffect(() => {
     dispatch(initArticlesPage());
@@ -52,18 +49,15 @@ const ArticlesPage: FC<ArticlesPageProps> = (props) => {
     dispatch(fetchNextArticlePage());
   }, [dispatch]);
 
-  const onChangeView = useCallback((view: ArticleView) => {
-    dispatch(articlesPagetActions.setView(view));
-  }, [dispatch]);
-
   return (
     <DynamicModuleLoader reducers={reducers} removeAfterUnmount={false}>
       <Page onScrollCb={onLoadMore} className={classNames(cls.articlesPage, {}, [className])}>
-        <ArticleViewSelector view={view || ArticleView.SMALL} onChangView={onChangeView} />
+        <ArticlesPageFilters />
         <ArticlesList
           articles={articles}
           view={view}
           isLoading={isLoading}
+          className={cls.list}
         />
       </Page>
     </DynamicModuleLoader>

@@ -21,6 +21,14 @@
   "Вы ввели некорректный данные": "Uncorrect username or password",
   "Комментарии отсутстуют": "No comments yet",
   "Введите комментарий": "Enter your comment",
-  "Читать далее...": "Read More..."
+  "Читать далее...": "Read More...",
+  "Сортировать по": "Sort by",
+  "Поиск": "Search",
+  "По": "By",
+  "возростанию" : "ascending",
+  "убыванию" : "descending",
+  "просмотрам" : "views",
+  "названию" : "title",
+  "дате созадния" : "create date",
 
 }
